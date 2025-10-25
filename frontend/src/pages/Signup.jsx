@@ -2,12 +2,15 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import AuthForm from "../components/AuthForm";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Signup() {
   const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+  const [isLoading, setIsloading] = useState(false);
 
   const handleSignup = async (formData, setFormData) => {
+    setIsloading(true);
     try {
       const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
@@ -27,6 +30,8 @@ export default function Signup() {
       navigate("/login");
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsloading(false);
     }
   };
   return (
@@ -34,7 +39,7 @@ export default function Signup() {
       <Navbar />
 
       <div className="mt-40">
-        <AuthForm type="signup" onSubmit={handleSignup} />
+        <AuthForm type="signup" onSubmit={handleSignup} isLoading={isLoading} />
       </div>
     </div>
   );
