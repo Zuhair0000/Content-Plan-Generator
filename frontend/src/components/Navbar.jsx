@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import Logo from "../assets/Logo.png";
 
 export default function Navbar({ showbuttons = true, transparent = false }) {
   const token = localStorage.getItem("token");
@@ -16,8 +17,12 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
         transparent ? "bg-transparent" : "bg-[#1F2028]"
       } px-10 text-white`}
     >
-      <Link to={token ? "/dashboard" : "/"} className="font-bold text-lg ">
-        HiveContent
+      <Link
+        to={token ? "/dashboard" : "/"}
+        className="flex justify-between items-center font-bold text-lg "
+      >
+        <img src={Logo} className="w-15" />
+        Hive Content
       </Link>
 
       {showbuttons && (
