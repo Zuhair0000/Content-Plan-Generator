@@ -176,3 +176,59 @@ exports.getContentByDraftId = async (req, res) => {
     console.error(err);
   }
 };
+
+exports.editContent = async (req, res) => {
+  const { id } = req.params;
+  const {
+    title,
+    idea,
+    script,
+    caption,
+    hashtags,
+    call_to_action,
+    visual_suggestion,
+  } = req.body;
+
+  if (
+    !title ||
+    !idea ||
+    !script ||
+    !caption ||
+    !hashtags ||
+    !call_to_action ||
+    !visual_suggestion
+  ) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE content SET title = $1, idea = $2, script = $3, caption = $4, hashtags = $5, call_to_action = $6, visual_suggestion= $7 WHERE id = $8",
+      [
+        title,
+        idea,
+        script,
+        caption,
+        JSON.stringify(hashtags),
+        call_to_action,
+        visual_suggestion,
+        id,
+      ]
+    );
+
+    res.status(200).json({ message: "Updated successfully" });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.deleteContent = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query("DELETE FROM content WHERE id = $1", [id]);
+
+    res.status(200).json({ message: "Content deleted successfully" });
+  } catch (err) {
+    console.error(err);
+  }
+};

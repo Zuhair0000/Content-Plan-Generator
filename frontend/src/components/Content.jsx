@@ -213,7 +213,7 @@ export default function Content({ content, setContent }) {
                 >
                   Cancel
                 </button>
-                <Button onSubmit={handleEditContent}>Save Changes</Button>
+                <Button onClick={handleEditContent}>Save Changes</Button>
               </div>
             </form>
 

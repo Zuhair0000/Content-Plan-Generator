@@ -199,7 +199,7 @@ export default function CreateContent() {
           </div>
         </form>
 
-        <div className="flex-1 w-full bg-gradient-to-r from-[#F3911D] to-[#840B86] rounded-t-[100px] mt-10"></div>
+        <div className="flex-1 w-full bg-linear-to-r from-[#F3911D] to-[#840B86] rounded-t-[100px] mt-10"></div>
       </div>
     </>
   );
