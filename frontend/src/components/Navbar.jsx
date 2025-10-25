@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/Logo3.png";
 
 export default function Navbar({ showbuttons = true, transparent = false }) {
   const token = localStorage.getItem("token");
