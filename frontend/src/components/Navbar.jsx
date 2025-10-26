@@ -30,7 +30,7 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
       {/* NAVBAR */}
       <nav
         className={`relative flex justify-between items-center border border-white/10 rounded-4xl m-5
-          px-10 text-white shadow-2xl z-50 overflow-hidden
+          px-10 py-5 md:py-1  text-white shadow-2xl z-50 overflow-hidden
           ${
             transparent
               ? " backdrop-blur-2xl bg-white/10"
