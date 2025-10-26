@@ -61,48 +61,63 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
         )}
 
         {token && (
-          <Button
-            onClick={() => {
-              handleLogout();
-              setMenuOpen(false);
-            }}
-          >
-            Logout
-          </Button>
+          <div className="hidden md:flex">
+            <Button
+              onClick={() => {
+                handleLogout();
+                setMenuOpen(false);
+              }}
+            >
+              Logout
+            </Button>
+          </div>
         )}
 
         {/* Mobile Toggle */}
-        {showbuttons && (
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden z-10 focus:outline-none"
-          >
-            {menuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        )}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden z-10 focus:outline-none"
+        >
+          {menuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </nav>
 
       {/* MOBILE MENU (glassy fullscreen overlay) */}
-      {menuOpen && showbuttons && (
+      {menuOpen && (
         <div className="fixed inset-0 z-40 flex flex-col items-center justify-start pt-32 text-white backdrop-blur-2xl bg-white/5 border-t border-white/10 shadow-2xl animate-fade-in">
           {/* Gradient glass reflection */}
           <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent opacity-10 pointer-events-none" />
 
-          <Link
-            to="/signup"
-            className="px-6 py-3 text-lg font-medium hover:text-white/80 relative z-10"
-            onClick={() => setMenuOpen(false)}
-          >
-            Signup
-          </Link>
-          <Button
-            onClick={() => {
-              navigate("/login");
-              setMenuOpen(false);
-            }}
-          >
-            Login
-          </Button>
+          {showbuttons && (
+            <>
+              <Link
+                to="/signup"
+                className="px-6 py-3 text-lg font-medium hover:text-white/80 relative z-10"
+                onClick={() => setMenuOpen(false)}
+              >
+                Signup
+              </Link>
+              <Button
+                onClick={() => {
+                  navigate("/login");
+                  setMenuOpen(false);
+                }}
+              >
+                Login
+              </Button>
+            </>
+          )}
+
+          {token && (
+            <Button
+              onClick={() => {
+                handleLogout();
+                setMenuOpen(false);
+              }}
+            >
+              Logout
+            </Button>
+          )}
         </div>
       )}
     </>
