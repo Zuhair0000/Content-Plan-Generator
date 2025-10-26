@@ -148,11 +148,11 @@ export default function Content({ content, setContent }) {
 
       {/* Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#1F2028] text-white rounded-2xl shadow-2xl p-8 w-full max-w-md border border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm overflow-auto py-10">
+          <div className="relative bg-[#1F2028] text-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md border border-white/10 my-auto">
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-[#F3911D] via-[#C94BAA] to-[#840B86] bg-clip-text text-transparent">
+            <div className="flex justify-between items-center mb-6  top-0 pb-2 z-10">
+              <h2 className="text-xl sm:text-2xl font-bold bg-linear-to-r from-[#F3911D] via-[#C94BAA] to-[#840B86] bg-clip-text text-transparent">
                 ✏️ Edit Content
               </h2>
               <button
@@ -205,7 +205,7 @@ export default function Content({ content, setContent }) {
               ))}
 
               {/* Buttons */}
-              <div className="flex justify-end space-x-3 pt-4">
+              <div className="flex flex-col sm:flex-row justify-end sm:space-x-3 gap-3 pt-4">
                 <button
                   type="button"
                   onClick={handleCloseModal}

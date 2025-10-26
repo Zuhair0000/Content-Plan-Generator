@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import AuthForm from "../components/AuthForm";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -26,7 +27,7 @@ export default function Signup() {
         email: "",
         password: "",
       });
-
+      toast.success("Signup successful");
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -38,7 +39,7 @@ export default function Signup() {
     <div className="min-h-screen bg-[#1f2028]">
       <Navbar />
 
-      <div className="mt-40">
+      <div className="my-40">
         <AuthForm type="signup" onSubmit={handleSignup} isLoading={isLoading} />
       </div>
     </div>

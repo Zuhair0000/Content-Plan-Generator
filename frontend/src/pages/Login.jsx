@@ -3,6 +3,7 @@ import AuthForm from "../components/AuthForm";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -27,9 +28,11 @@ export default function Login() {
         email: "",
         password: "",
       });
+      toast.success("Login successfull");
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
+      toast.error(err.message);
     } finally {
       setIsloading(false);
     }
@@ -37,7 +40,7 @@ export default function Login() {
   return (
     <div className="bg-[#1f2028] min-h-screen">
       <Navbar />
-      <div className="mt-40">
+      <div className="my-50">
         <AuthForm type="login" onSubmit={handleLogin} isLoading={isLoading} />
       </div>
     </div>

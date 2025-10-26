@@ -21,11 +21,12 @@ export default function Home() {
 
       <div className="w-full absolute min-h-screen ">
         <Navbar transparent={true} />
-        <div className=" text-center mt-80">
-          <h1 className="text-6xl font-bold bg-linear-to-r from-[#f3911D] to-[#840B86] text-transparent bg-clip-text m-5">
+
+        <div className="flex flex-col justify-center items-center flex-1 text-center sm:px-9 mt-20 sm:mt-32 md:mt-80">
+          <h1 className="text-4xl md:text-6xl sm:text-5xl  font-bold bg-linear-to-r from-[#f3911D] to-[#840B86] text-transparent bg-clip-text m-5">
             Plan Your Content with AI
           </h1>
-          <p className="text-lg text-gray-300 text-center mb-10 ">
+          <p className="text-sm md:text-lg sm:text-base text-gray-300 text-center mb-10 ">
             Turn any idea into a complete content plan with AI-generated posts,
             captions, hashtags, visuals, and schedules.
             <br /> Designed to help you create engaging, ready-to-publish social

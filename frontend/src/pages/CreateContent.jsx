@@ -165,8 +165,9 @@ export default function CreateContent() {
                 className="w-full bg-gray-800 border border-gray-700 rounded-2xl p-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               ></textarea>
             </div>
-
-            {/* Submit Button */}
+          </div>
+          {/* Submit Button */}
+          <div className="flex justify-center">
             <Button onClick={handleSubmit} type="submit">
               {isLoading ? (
                 <div className="flex items-center justify-center">
