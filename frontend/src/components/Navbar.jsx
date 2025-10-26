@@ -60,6 +60,17 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
           </div>
         )}
 
+        {token && (
+          <Button
+            onClick={() => {
+              handleLogout();
+              setMenuOpen(false);
+            }}
+          >
+            Logout
+          </Button>
+        )}
+
         {/* Mobile Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
