@@ -20,7 +20,7 @@ export default function AuthForm({ type, onSubmit, isLoading }) {
 
   const isSignup = type === "signup";
   return (
-    <div className="w-[90%] sm:w-[85%] max-w-md mx-auto bg-[#1F2028] backdrop:blur-lg rounded-2xl p-8 shadow-lg text-white border border-white/10">
+    <div className="w-[90%] sm:w-[85%] md:w-full max-w-md mx-auto bg-[#1F2028] backdrop:blur-lg rounded-2xl p-8 shadow-lg text-white border border-white/10">
       <h1 className="text-5xl text-orange-500 text-center font-bold mb-6">
         {isSignup ? "Signup" : "Login"}
       </h1>
