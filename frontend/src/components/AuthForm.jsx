@@ -101,9 +101,9 @@ export default function AuthForm({ type, onSubmit, isLoading }) {
         {isSignup ? (
           <>
             Already have and account?{" "}
-            <a className="text-pink-400 hover:underline" href="/login">
+            <Link className="text-pink-400 hover:underline" to="/login">
               Login
-            </a>
+            </Link>
           </>
         ) : (
           <>
