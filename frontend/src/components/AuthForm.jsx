@@ -107,9 +107,9 @@ export default function AuthForm({ type, onSubmit, isLoading }) {
         ) : (
           <>
             New?{" "}
-            <a className="text-pink-400 hover:underline" href="/signup">
+            <Link className="text-pink-400 hover:underline" to="/signup">
               Sign up
-            </a>
+            </Link>
           </>
         )}
       </p>
