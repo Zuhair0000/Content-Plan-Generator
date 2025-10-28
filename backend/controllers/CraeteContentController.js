@@ -1,9 +1,12 @@
-const Groq = require("groq-sdk");
+// const Groq = require("groq-sdk");
+const { GoogleGenAI } = require("@google/genai");
 const pool = require("../db");
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+// const groq = new Groq({
+//   apiKey: process.env.GROQ_API_KEY,
+// });
+
+const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 exports.generateContent = async (req, res) => {
   const userId = req.user.id;
@@ -85,18 +88,23 @@ IMPORTANT RULES:
 `;
 
   try {
-    const completion = await groq.chat.completions.create({
-      model: "openai/gpt-oss-20b",
-      messages: [
-        {
-          role: "system",
-          content: "You generate structured JSON responses only",
-        },
-        { role: "user", content: prompt },
-      ],
+    // const completion = await groq.chat.completions.create({
+    //   model: "openai/gpt-oss-20b",
+    //   messages: [
+    //     {
+    //       role: "system",
+    //       content: "You generate structured JSON responses only",
+    //     },
+    //     { role: "user", content: prompt },
+    //   ],
+    // });
+
+    const response = await genAI.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: prompt,
     });
 
-    let raw = completion.choices[0].message.content.trim();
+    let raw = response.text.trim();
 
     // Remove ```json or ``` if Groq wraps the output
     raw = raw

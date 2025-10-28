@@ -234,10 +234,7 @@ export default function Content({ content, setContent }) {
       )}
       {/* Read Modal */}
       {isReadModal && (
-        <div
-          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center backdrop-blur-md overflow-auto py-10"
-          onClick={handleCloseModal}
-        >
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center backdrop-blur-md overflow-auto py-10">
           <div className="relative bg-[#f2028] text-white p-6 rounded-2xl sm:p-8 border-2 w-[85%] my-auto">
             <div className="border-b">
               <h1 className="text-center text-2xl sm:text-3xl font-bold bg-linear-to-r from-[#F3911D] to-[#840B86] text-transparent bg-clip-text p-10">
