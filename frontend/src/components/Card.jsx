@@ -1,13 +1,14 @@
 import React from "react";
 import clsx from "clsx";
 
-export function Card({ className, children }) {
+export function Card({ className, children, onClick }) {
   return (
     <div
       className={clsx(
         "rounded-2xl border border-white/10 bg-[#2A2B33] shadow-md hover:shadow-orange-500/10 transition-all duration-200",
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>

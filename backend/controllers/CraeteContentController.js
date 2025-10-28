@@ -27,32 +27,37 @@ exports.generateContent = async (req, res) => {
   }
 
   const prompt = `
-You are an expert AI content strategist.
+You are an expert AI content strategist and professional scriptwriter.
 
-Generate a complete, structured content plan for social media based on the following information:
+Generate a complete, structured social media content plan based on the following information:
 
 BUSINESS INFO:
 - Name: "${businessName}"
 - Target Audience: "${targetAudience}"
-- Content Type: "${contentType}"
+- Content Type: "${contentType}" (e.g., short videos, long videos, carousels, posts, etc.)
 - Plan Duration: "${duration}"
 - Posting Frequency: "${frequency}"
 - Additional Details: "${details}"
 
 TASK:
-1. Create a full content plan for the selected duration and frequency (e.g., if 2 weeks daily = 14 content ideas).
-2. Each content entry must be detailed and ready-to-use.
+1. Create a full content plan for the selected duration and posting frequency 
+   (e.g., if 2 weeks daily = 14 content ideas).
+2. Each content item must be fully detailed, practical, and directly ready for publishing.
 
 For each content item, include:
-- title: a catchy post title or hook.
-- idea: a detailed description of the content idea or concept.
-- script: if it's a video, include a ready-to-record script or outline.
-- caption: a social media caption.
-- hashtags: 5–10 relevant hashtags.
-- call_to_action: a simple CTA like “Book now”, “Follow for more”, or “Learn more”.
-- visual_suggestion: what visuals or shots to use.
+- **day**: e.g., "Day 1"
+- **title**: a catchy post title or hook.
+- **idea**: a short description of the main content concept.
+- **script**: a *ready-to-record, word-for-word* spoken script that the user can read directly on camera.
+    - If the content type includes "short video" → make it 30–60 seconds long (about 80–120 words).
+    - If the content type includes "long video" → make it **at least 5 minutes long** (about 700–900 words) with a clear intro, body, and outro.
+    - Ensure the tone is natural, conversational, and brand-aligned.
+- **caption**: a social media caption that summarizes or teases the content.
+- **hashtags**: 5–10 relevant hashtags.
+- **call_to_action**: a short CTA like “Subscribe for more”, “Book now”, or “Learn more”.
+- **visual_suggestion**: describe visuals, b-roll, or camera shots that match the script.
 
-Return the result in **strict JSON format** like this:
+Return the result in **strict JSON format** exactly like this:
 
 {
   "content": [
@@ -60,7 +65,7 @@ Return the result in **strict JSON format** like this:
       "day": "Day 1",
       "title": "...",
       "idea": "...",
-      "script": "...",
+      "script": "Exact spoken script here (word-for-word).",
       "caption": "...",
       "hashtags": ["...", "..."],
       "call_to_action": "...",
@@ -71,9 +76,12 @@ Return the result in **strict JSON format** like this:
   "schedule": "${frequency}"
 }
 
-Make sure:
-- The total number of content items matches the duration and posting frequency.
-- The tone, ideas, and CTAs are creative, realistic, and relevant to the provided details.
+IMPORTANT RULES:
+- Do NOT include Markdown, backticks, or explanations — only valid JSON.
+- The "script" field must contain a **complete spoken script**, not just bullet points.
+- Long video scripts must be detailed and flow naturally with storytelling and value.
+- Match tone, style, and CTAs to the provided business info and target audience.
+- The total number of content items must match the duration and posting frequency.
 `;
 
   try {

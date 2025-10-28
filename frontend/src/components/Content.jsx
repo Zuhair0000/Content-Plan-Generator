@@ -16,6 +16,7 @@ export default function Content({ content, setContent }) {
     content_type: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isReadModal, setIsReadModal] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
@@ -69,9 +70,11 @@ export default function Content({ content, setContent }) {
     }
   };
 
-  const handleOpenModal = (e, item) => {
+  const handleOpenModal = (e, item, edit = false) => {
     e.preventDefault();
-    setIsModalOpen(true);
+    {
+      edit ? setIsModalOpen(true) : setIsReadModal(true);
+    }
     setCurrentId(item.id);
     setFormData({ ...item });
   };
@@ -81,7 +84,10 @@ export default function Content({ content, setContent }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setIsReadModal(false);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="py-10">
@@ -102,6 +108,7 @@ export default function Content({ content, setContent }) {
           <Card
             key={item.id || index}
             className="bg-[#1F2028]/80 border border-white/10 shadow-md hover:shadow-xl transition-all"
+            onClick={(e) => handleOpenModal(e, item, false)}
           >
             <CardContent className="p-6 flex flex-col gap-4">
               <div>
@@ -136,7 +143,9 @@ export default function Content({ content, setContent }) {
                 )}
               </div>
               <div className="flex gap-3">
-                <button onClick={(e) => handleOpenModal(e, item)}>Edit</button>
+                <button onClick={(e) => handleOpenModal(e, item, true)}>
+                  Edit
+                </button>
                 <button onClick={(e) => handleDeleteContent(e, item.id)}>
                   Delete
                 </button>
@@ -220,6 +229,53 @@ export default function Content({ content, setContent }) {
             {errorMessage && (
               <p className="text-red-400 text-sm mt-2">{errorMessage}</p>
             )}
+          </div>
+        </div>
+      )}
+      {/* Read Modal */}
+      {isReadModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center backdrop-blur-md overflow-auto"
+          onClick={handleCloseModal}
+        >
+          <div className="relative bg-[#f2028] text-white p-6 rounded-2xl sm:p-8 border-2 w-[85%]">
+            <div className="border-b">
+              <h1 className="text-center text-2xl sm:text-3xl font-bold bg-linear-to-r from-[#F3911D] to-[#840B86] text-transparent bg-clip-text p-10">
+                Content Details
+              </h1>
+            </div>
+
+            <div className="m-10">
+              <h3 className="font-bold text-orange-500 text-lg">Title:</h3>
+              <p>{formData.title}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">Idea:</h3>
+              <p>{formData.idea}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">Script:</h3>
+              <p>{formData.script}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">Caption:</h3>
+              <p>{formData.caption}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">Hashtags:</h3>
+              <p>{formData.hashtags}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">CTA:</h3>
+              <p>{formData.call_to_action}</p>
+
+              <h3 className="font-bold text-orange-500 text-lg">Visuals:</h3>
+              <p>{formData.visual_suggestion}</p>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-end sm:space-x-3 gap-3 pt-4">
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="px-4 py-2.5 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
