@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "./Card";
 import Button from "./Button";
 import toast from "react-hot-toast";
+import ContentDetalsModal from "./ContentDetalsModal";
 
 export default function Content({ content, setContent }) {
   const [formData, setFormData] = useState({
@@ -234,47 +235,10 @@ export default function Content({ content, setContent }) {
       )}
       {/* Read Modal */}
       {isReadModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center backdrop-blur-md overflow-auto py-10">
-          <div className="relative bg-[#f2028] text-white p-6 rounded-2xl sm:p-8 border-2 w-[85%] my-auto">
-            <div className="border-b">
-              <h1 className="text-center text-2xl sm:text-3xl font-bold bg-linear-to-r from-[#F3911D] to-[#840B86] text-transparent bg-clip-text p-10">
-                Content Details
-              </h1>
-            </div>
-
-            <div className="my-10">
-              <h3 className="font-bold text-orange-500 text-lg">Title:</h3>
-              <p>{formData.title}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">Idea:</h3>
-              <p>{formData.idea}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">Script:</h3>
-              <p>{formData.script}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">Caption:</h3>
-              <p>{formData.caption}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">Hashtags:</h3>
-              <p className="break-all">{formData.hashtags}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">CTA:</h3>
-              <p>{formData.call_to_action}</p>
-
-              <h3 className="font-bold text-orange-500 text-lg">Visuals:</h3>
-              <p>{formData.visual_suggestion}</p>
-            </div>
-            <div className="flex flex-col sm:flex-row justify-end sm:space-x-3 gap-3 pt-4">
-              <button
-                type="button"
-                onClick={handleCloseModal}
-                className="px-4 py-2.5 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <ContentDetalsModal
+          item={formData}
+          handleCloseModal={handleCloseModal}
+        />
       )}
     </div>
   );
