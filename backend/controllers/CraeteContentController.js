@@ -52,7 +52,7 @@ For each content item, include:
 - **title**: a catchy post title or hook.
 - **idea**: a short description of the main content concept.
 - **script**: a *ready-to-record, word-for-word* spoken script that the user can read directly on camera.
-    - If the content type includes "short video" → make it 30–60 seconds long (about 80–120 words).
+    - If the content type includes "short video" or "Reels" → make it 60–90 seconds long (about 100–120 words).
     - If the content type includes "long video" → make it **at least 5 minutes long** (about 700–900 words) with a clear intro, body, and outro.
     - Ensure the tone is natural, conversational, and brand-aligned.
 - **caption**: a social media caption that summarizes or teases the content.
