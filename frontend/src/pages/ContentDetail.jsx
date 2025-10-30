@@ -9,7 +9,8 @@ import Content from "../components/Content";
 export default function ContentDetail() {
   const [activeTab, setActiveTab] = useState("content");
   const [contentItems, setContentItems] = useState([]);
-  const [schedule, setSchedule] = useState({});
+  const [duration, setDuration] = useState("");
+  const [frequency, setFrequency] = useState("");
   const { id } = useParams();
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
@@ -29,7 +30,8 @@ export default function ContentDetail() {
           ? data.content
           : data.content?.content || [];
         setContentItems(contentArray);
-        setSchedule(data.schedule || {});
+        setDuration(data.duration);
+        setFrequency(data.frequency);
       } catch (err) {
         console.error("Error fetching content:", err);
       }
@@ -69,7 +71,11 @@ export default function ContentDetail() {
         )}
 
         {activeTab === "schedule" && (
-          <Schedule schedule={schedule} content={contentItems} />
+          <Schedule
+            duration={duration}
+            frequency={frequency}
+            content={contentItems}
+          />
         )}
       </div>
     </>

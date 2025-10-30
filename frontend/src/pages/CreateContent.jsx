@@ -130,7 +130,7 @@ export default function CreateContent() {
                 <option value="1 week">1 Week</option>
                 <option value="2 weeks">2 Weeks</option>
                 <option value="3 weeks">3 Weeks</option>
-                <option value="1 month">1 Month</option>
+                {/* <option value="1 month">1 Month</option> */}
               </select>
             </div>
 

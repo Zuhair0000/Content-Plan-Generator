@@ -76,7 +76,10 @@ Return the result in **strict JSON format** exactly like this:
       "content_type": "..."
     }
   ],
-  "schedule": "${frequency}"
+  "plan_details": {
+    "duration": "${duration}",
+    "frequency": "${frequency}"
+  }
 }
 
 IMPORTANT RULES:
@@ -100,25 +103,47 @@ IMPORTANT RULES:
     // });
 
     const response = await genAI.models.generateContent({
-      model: "gemini-2.5-pro",
+      // model: "gemini-2.5-pro",
+      model: "gemini-2.0-flash-exp",
       contents: prompt,
     });
 
-    let raw = response.text.trim();
+    let raw = response.text?.trim();
 
     // Remove ```json or ``` if Groq wraps the output
     raw = raw
       .replace(/^```json\s*/i, "")
       .replace(/```$/i, "")
+      .replace(/[\u0000-\u0019]+/g, " ") // remove control chars
+      .replace(/\r?\n|\r/g, " ") // remove line breaks
+      .replace(/\\"/g, '"') // fix escaped quotes
       .trim();
 
-    data = JSON.parse(raw);
+    // data = JSON.parse(raw);
 
-    const { content, schedule } = data;
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (err) {
+      console.error("JSON Parse Error:", err);
+      console.error("Raw response sample:", raw.slice(0, 500) + "...");
+      return res.status(500).json({
+        message:
+          "AI returned incomplete data (too large to process). Try a shorter duration or lower posting frequency.",
+      });
+    }
+    if (!data?.content || !Array.isArray(data.content)) {
+      return res.status(500).json({
+        message: "AI returned unexpected structure. Please try again.",
+      });
+    }
+
+    const { content, plan_details } = data;
+    const { duration, frequency } = plan_details;
 
     const draftResult = await pool.query(
-      "INSERT INTO drafts (user_id, title, schedule) VALUES ($1, $2, $3) RETURNING id",
-      [userId, businessName, schedule]
+      "INSERT INTO drafts (user_id, title, duration, frequency) VALUES ($1, $2, $3, $4) RETURNING id",
+      [userId, businessName, duration, frequency]
     );
 
     const draftId = draftResult.rows[0].id;
@@ -145,7 +170,8 @@ IMPORTANT RULES:
       message: "Ai-generated plan successfully",
       draftId,
       content,
-      schedule,
+      duration,
+      frequency,
     });
   } catch (err) {
     console.error(err);
@@ -157,7 +183,7 @@ exports.getAllDrafts = async (req, res) => {
 
   try {
     const result = await pool.query(
-      "SELECT id, title, schedule, created_at FROM drafts WHERE user_id = $1",
+      "SELECT id, title, duration, frequency, created_at FROM drafts WHERE user_id = $1",
       [userId]
     );
 
@@ -179,14 +205,17 @@ exports.getContentByDraftId = async (req, res) => {
     );
 
     const scheduleResult = await pool.query(
-      "SELECT schedule FROM drafts WHERE id = $1",
+      "SELECT duration, frequency FROM drafts WHERE id = $1",
       [draftId]
     );
+
+    const schedule = scheduleResult.rows[0] || {};
 
     res.status(200).json({
       message: "content fetched successfully",
       content: contentResult.rows,
-      schedule: scheduleResult.rows[0]?.schedule,
+      duration: schedule?.duration,
+      frequency: schedule?.frequency,
     });
   } catch (err) {
     console.error(err);

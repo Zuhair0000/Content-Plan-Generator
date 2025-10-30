@@ -4,17 +4,59 @@ import { Card, CardContent } from "./Card";
 import { useState } from "react";
 import ContentDetalsModal from "./ContentDetalsModal";
 
-export default function Schedule({ schedule, content }) {
+export default function Schedule({ duration, frequency, content }) {
   // Determine the spacing of days based on schedule type
   const [selectedItem, setSelectedItem] = useState(null);
-  const days =
-    schedule === "daily"
-      ? content.map((_, i) => i + 1) // 1,2,3,... for daily
-      : content.map((_, i) => i * 7 + 1); // weekly example spacing
+
+  const getDaysCount = (durationValue, frequencyValue) => {
+    const dur = durationValue?.toLowerCase?.() || "1 week";
+    const freq = frequencyValue?.toLowerCase?.() || "daily";
+
+    let totalDays;
+    switch (dur) {
+      case "1 week":
+        totalDays = 7;
+        break;
+      case "2 weeks":
+        totalDays = 14;
+        break;
+      case "3 weeks":
+        totalDays = 21;
+        break;
+      case "month":
+      case "1 month":
+        totalDays = 30;
+        break;
+      default:
+        totalDays = 7;
+    }
+
+    switch (freq) {
+      case "daily":
+        return Array.from({ length: totalDays }, (_, i) => i + 1);
+      case "every 2 days":
+        return Array.from(
+          { length: Math.ceil(totalDays / 2) },
+          (_, i) => i * 2 + 1
+        );
+      case "weekly":
+        return Array.from(
+          { length: Math.ceil(totalDays / 7) },
+          (_, i) => i * 7 + 1
+        );
+      default:
+        return Array.from({ length: totalDays }, (_, i) => i + 1);
+    }
+  };
+  const days = getDaysCount(duration, frequency);
 
   const handleCloseModal = () => {
     setSelectedItem(null);
   };
+
+  // console.log("DURATION:", duration);
+  // console.log("FREQUENCY:", frequency);
+  // console.log("CONTENT LENGTH:", content.length);
   return (
     <div className="py-8">
       {/* Header */}
