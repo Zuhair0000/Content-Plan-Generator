@@ -27,7 +27,6 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
   }, [navigate]);
   return (
     <>
-      {/* NAVBAR */}
       <nav
         className={`relative flex justify-between items-center border border-white/10 rounded-4xl m-5
           px-10 py-5 md:py-1  text-white shadow-2xl z-50 overflow-hidden
@@ -38,10 +37,8 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
           }
         `}
       >
-        {/* Glass overlay layer */}
         <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-white/20 to-transparent opacity-10 pointer-events-none rounded-4xl" />
 
-        {/* Logo */}
         <Link
           to={token ? "/dashboard" : "/"}
           className="flex items-center font-bold text-lg gap-2 z-10"
@@ -50,7 +47,6 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
           Hive Content
         </Link>
 
-        {/* Desktop Links */}
         {showbuttons && (
           <div className="hidden md:flex gap-4 items-center z-10">
             <Link to="/signup" className="px-4 py-2 hover:text-white/80">
@@ -82,10 +78,8 @@ export default function Navbar({ showbuttons = true, transparent = false }) {
         </button>
       </nav>
 
-      {/* MOBILE MENU (glassy fullscreen overlay) */}
       {menuOpen && (
         <div className="fixed inset-0 z-40 flex flex-col items-center justify-start pt-32 text-white backdrop-blur-2xl bg-white/5 border-t border-white/10 shadow-2xl animate-fade-in">
-          {/* Gradient glass reflection */}
           <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent opacity-10 pointer-events-none" />
 
           {showbuttons && (
