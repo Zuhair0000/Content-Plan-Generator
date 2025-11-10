@@ -65,7 +65,6 @@ export default function ContentDetail() {
           ))}
         </div>
 
-        {/* Tab Content */}
         {activeTab === "content" && (
           <Content content={contentItems} setContent={setContentItems} />
         )}
